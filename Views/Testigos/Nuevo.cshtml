@@ -1,0 +1,108 @@
+﻿@model TestigoViewModel
+@{
+    ViewData["Title"] = "Nuevo";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="gray-bg form-horizontal">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Detalle del testigo</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">Catalogos</a>
+                    </li>
+                    <li>
+                        <a>Testigo</a>
+                    </li>
+                    <li class="active">
+                        <strong>Editar</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeIn">
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Datos del resguardante</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Testigo</label>
+
+                                    <div class="col-lg-10">@Html.TextBoxFor(model => model.testigo, new { @class = "form-control" })</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label"></label>
+
+                                    <div class="col-lg-10">
+                                        @Html.CheckBoxFor(model => model.activo, new { @class = "i-checks" }) <label class="control-label"> Activo</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="hr-line-dashed"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" id="id" name="id" value=0 />
+                                    <input type="hidden" id="opcion" name="opcion" value="1" />
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button type="submit" class="btn btn-primary">Grabar Testigo</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+@section scripts
+{
+
+    @*css*@
+    <link href="~/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="~/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+
+    @*js*@
+    <script src="~/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+    </script>
+}

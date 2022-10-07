@@ -1,0 +1,223 @@
+﻿@model SoporteModel
+
+@{
+    ViewData["Title"] = "Nuevo";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div class="gray-bg form-horizontal">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="ibox">
+
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Registro del Soporte
+                                    </div>
+                                    <div class="panel-body">
+                                        @*<form class="form-horizontal">*@
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Fecha Solicitud</label>
+                                            <div class="col-lg-10">
+                                                <div id="data_1">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fechaSolicitud" name="fechaSolicitud" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Area</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" asp-for="idArea" asp-items="@(new SelectList(ViewBag.areas, "id", "area"))">
+                                                    <option>Seleccione un área</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Solicitante</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" asp-for="idSolicito" asp-items="@(new SelectList(ViewBag.resguardante, "id", "resguardante"))">
+                                                    <option>Seleccione al que solicito el soporte</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Genero</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" name="genero" id="genero">
+                                                    <option value="H">Hombre</option>
+                                                    <option value="M">Mujer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Tipo Servicio</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" asp-for="idServicio" asp-items="@(new SelectList(ViewBag.servicios, "idServicio", "cServicio"))">
+                                                    <option>Seleccione un tipo de Servicio</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class=" form-group">
+                                            <label class="col-lg-2 control-label">Motivo Servicio</label>
+                                            <div class="col-lg-10">
+                                                @Html.TextAreaFor(model => model.problema, new { @class = "form-control", rows = 3 })
+                                                <span asp-validation-for="problema" class="badge"></span>
+                                            </div>
+                                        </div>
+
+                                        @*</form>*@
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        Actualiación del Soporte
+                                    </div>
+                                    <div class="panel-body">
+
+                                        @*<form class="form-horizontal">*@
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Atendio</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control" asp-for="idAtendio" asp-items="@(new SelectList(ViewBag.atender, "id", "testigo"))">
+                                                    <option>Seleccione a quien atendió</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Fecha Atención</label>
+                                            <div class="col-lg-10">
+                                                <div id="data_1">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fechaAtencion" name="fechaAtencion" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Piso</label>
+                                            <div class="col-lg-10">@Html.TextBoxFor(model => model.nivel, new { @class = "form-control" })</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Extensión</label>
+                                            <div class="col-lg-10">@Html.TextBoxFor(model => model.extension, new { @class = "form-control" })</div>
+                                        </div>
+
+                                        <div class=" form-group">
+                                            <label class="col-lg-2 control-label">Diagnóstico</label>
+                                            <div class="col-lg-10">
+                                                @Html.TextAreaFor(model => model.diagnostico, new { @class = "form-control", rows = 3 })
+                                                <span asp-validation-for="diagnostico" class="badge"></span>
+                                            </div>
+                                        </div>
+
+                                        @*</form>*@
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div>
+                                        <input type="hidden" id="id" name="id" value="1" />
+                                        <input type="hidden" id="opcion" name="opcion" value="1" />
+                                        @*<input type="hidden" id="opcion" name="opcion" value=@ViewBag.accion />*@
+                                        <button type="submit" class="btn btn-primary">Grabar Soporte</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+@section scripts
+{
+    @*-- css --*@
+    <link href="~/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/css/plugins/iCheck/custom.css" rel="stylesheet" />
+
+    @*-- js --*@
+
+    <script src="~/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/js/plugins/iCheck/icheck.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+    </script>
+}   

@@ -1,0 +1,150 @@
+﻿@model MantenimientoViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+
+    <div  class="gray-bg form-horizontal">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="ibox">
+
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        Datos del Resguardante
+                                    </div>
+                                    <div class="panel-body">
+                                        <form class="form-horizontal">
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Resguardante</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control" asp-for="idResguardante" asp-items="@(new SelectList(ViewBag.resguardante, "id", "resguardante"))">
+                                                        <option>Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Extension</label>
+                                                <div class="col-lg-10">@Html.TextBoxFor(model => model.extension, new { @class = "form-control" })</div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        Datos del Equipo
+                                    </div>
+                                    <div class="panel-body">
+
+                                        @*<form class="form-horizontal">*@
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Equipo</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control" asp-for="idEquipo" asp-items="@(new SelectList(ViewBag.equipo, "id", "descripcion"))">
+                                                        <option>Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Accesorios</label>
+                                                <div class="col-lg-10">@Html.TextBoxFor(model => model.accesorios, new { @class = "form-control" })</div>
+                                            </div>
+
+                                        @*</form>*@
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-warning"></i> Falla - Diagnóstico Técnico - Dictamen Técnico
+                                    </div>
+                                    <div class="panel-body">
+                                        @*<form class="form-horizontal">*@
+                                            <div class=" form-group">
+                                                <label class="col-lg-2 control-label">Falla reportada</label>
+                                                <div class="col-lg-10">
+                                                    @Html.TextAreaFor(model => model.falla, new { @class = "form-control", rows = 3 })
+                                                </div>
+                                            </div>
+
+                                            <div class=" form-group">
+                                                <label class="col-lg-2 control-label">Diagnostico tecnico</label>
+                                                <div class="col-lg-10">
+                                                    @Html.TextAreaFor(model => model.diagnostico, new { @class = "form-control", rows = 3 })
+                                                </div>
+                                            </div>
+
+                                            <div class=" form-group">
+                                                <label class="col-lg-2 control-label">Dictamen tecnico</label>
+                                                <div class="col-lg-10">
+                                                    @Html.TextAreaFor(model => model.dictamen, new { @class = "form-control", rows = 3 })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Recibe equipo</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control" asp-for="idRecibe" asp-items="@(new SelectList(ViewBag.recibe, "id", "testigo"))">
+                                                        <option>Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Realizo mantenimiento</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control" asp-for="idSoporte" asp-items="@(new SelectList(ViewBag.soporte, "id", "testigo"))">
+                                                        <option>Seleccione</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        @*</form>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" id="id" name="id" value="1" />
+                                    <input type="hidden" id="opcion" name="opcion" value="1" />
+                                    <button type="submit" class="btn btn-primary">Grabar Mantenimiento</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}

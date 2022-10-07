@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MarcasViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Indice de Marcas</h2>
+
+<div class="form-group">
+    @using (Html.BeginForm("Nuevo", "Marcas", FormMethod.Get))
+    {
+        <button type="submit" class="btn btn-primary">Nueva Marca</button>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-example">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Marcas</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var objeto in Model)
+            {
+                <tr>
+                    <th scope="row" style="vertical-align:middle;">@objeto.id</th>
+                    <td style="vertical-align:middle;">@objeto.marca</td>
+                    <td>
+                        <p>
+                            @Html.ActionLink("Editar", "Editar", new { p_Id = objeto.id }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                        </p>
+                        @*<p>
+                                @Html.ActionLink("Eliminar", "Eliminar", new { p_Id = objeto.id }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-danger btn-xs" })
+                            </p>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ListaMarcas' },
+                    { extend: 'pdf', title: 'ListaMarcas' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+}

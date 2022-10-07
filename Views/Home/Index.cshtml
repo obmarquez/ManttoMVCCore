@@ -1,0 +1,270 @@
+﻿@model IEnumerable<ManttoMVCCore.Models.Consultas>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h4 class="display-4">Bienvenido al Sistema de Soporte Tecnico - UI</h4>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    @*<div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Grafica de Soporte - Concentrado</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <div>
+                        <canvas id="barChart" height="140"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Grafica Avance Mensual <small> 2022 </small></h5>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div id="container_avance" style="min-width: 310px; height: 300px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Grafica de Atencion y Mantenimiento</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-line-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Mantenimientos por Area</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <ul class="list-group">
+                        @foreach (var item in @ViewBag.listaMantenimiento)
+                        {
+                            <li class="list-group-item">
+                                <span class="badge badge-success">@item.total</span>
+                                @item.area
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Concentado de Mantenimientos realizados por:</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <ul class="list-group">
+                        @foreach (var item in @ViewBag.listaRaliza)
+                        {
+                            <li class="list-group-item">
+                                <span class="badge badge-success">@item.total</span>
+                                @item.realiza
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts
+{
+    <!-- Flot -->
+    <script src="~/js/plugins/flot/jquery.flot.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="~/js/plugins/flot/jquery.flot.time.js"></script>
+    <script src="~/js/plugins/chartJs/Chart.min.js"></script>
+
+    <script src="~/scriptsHighcharts/highcharts.min.js"></script>
+    <script src="~/scriptsHighcharts/exporting.min.js"></script>
+    <script src="~/scriptsHighcharts/export-data.min.js"></script>
+    <script src="~/scriptsHighcharts/data.min.js"></script>
+    <script src="~/scriptsHighcharts/accessibility.min.js"></script>
+
+    <script type="text/javascript">
+
+        //--------------------------------------------------------------------------------------------------------------------------------------
+
+        $(function () {
+            var barOptions = {
+                series: {
+                    lines: {
+                        show: true,
+                        lineWidth: 2,
+                        fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 0.0
+                            }, {
+                                opacity: 0.0
+                            }]
+                        }
+                    }
+                },
+                xaxis: {
+                    tickDecimals: 0
+                },
+                colors: ["#1ab394"],
+                grid: {
+                    color: "#999999",
+                    hoverable: true,
+                    clickable: true,
+                    tickColor: "#D4D4D4",
+                    borderWidth: 0
+                },
+                legend: {
+                    show: false
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "x: %x, y: %y"
+                }
+            };
+
+            var i = 1;
+            var par = [];
+            var barData = [];
+            @foreach (var d in Model)
+            {
+                @:par = [i++, @Html.DisplayFor(modelItem => d.total)];
+                @:barData.push(par);
+            }
+
+            $.plot($("#flot-line-chart"), [barData], barOptions);
+
+            //--------------------------------------------------------------Grafica de barra Soporte
+            var labels_b = [];
+            var data_b = [];
+            @foreach (var item2 in @ViewBag.listaSoporte)
+            {
+
+                @:labels_b.push(['@item2.realiza']);    //sintaxix para meter cadenas o texto
+                @:data_b.push(@item2.total);            //sintaxis para meter valores enteros
+              }
+
+            var barData = {
+                //labels: ["Armando", "Oscar", "Gerardo", "Liliana", "Javier", "Michael", "Fabian", "Miguel"],
+                labels: labels_b,
+                datasets: [
+                    //{
+                    //    label: "Data 1",
+                    //    backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                    //    pointBorderColor: "#fff",
+                    //    data: [65, 59, 80, 81, 56, 55, 40]
+                    //},
+                    {
+                        label: "Soportes",
+                        backgroundColor: 'rgba(26,179,148,0.5)',
+                        borderColor: "rgba(26,179,148,0.7)",
+                        pointBackgroundColor: "rgba(26,179,148,1)",
+                        pointBorderColor: "#fff",
+                        data: data_b
+                    }
+                ]
+            };
+
+            var barOptions = {
+                responsive: true
+            };
+
+
+            var ctx2 = document.getElementById("barChart").getContext("2d");
+            new Chart(ctx2, { type: 'bar', data: barData, options: barOptions });
+            //--------------------------------------------------------------------------------------
+
+        });
+
+        //--------------------------------------------------------------------------------------------------------------------------------------
+        var myArrary_avanceSoporte = [];
+        var tri_avanceSoporte = [];
+        @foreach (var item3 in @ViewBag.listaSoporte)
+        {
+
+            @:tri_avanceSoporte = ["@item3.realiza", parseFloat(@item3.total), "@item3.realiza"];
+            @:myArrary_avanceSoporte.push(tri_avanceSoporte);
+        }
+
+        Highcharts.chart('container_avance', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Soportes mensuales'
+            },
+            subtitle: {
+                text: 'Soportes basadas en fecha de atención'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'Soporte al mes'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y}'
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> <br/>'
+            },
+            series: [
+                {
+                    name: "Soportes",
+                    colorByPoint: true,
+                    data: myArrary_avanceSoporte
+                }
+            ]
+        })
+
+    </script>
+}

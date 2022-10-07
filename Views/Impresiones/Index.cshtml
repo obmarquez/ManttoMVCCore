@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Indices</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-example">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Catalogos</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Areas</td>
+                <td>
+                    <input type="button" value="Imprimir Areas" class="btn btn-primary" onclick="location.href='@Url.Action("printCatalogoArea","Impresiones", new { @p_opcion = 1 })'" />
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Equipos</td>
+                <td>
+                    <input type="button" value="Imprimir Equipos" class="btn btn-primary" onclick="location.href='@Url.Action("printCatalogoArea","Impresiones", new { @p_opcion = 2 })'" />
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Marcas</td>
+                <td>
+                    <input type="button" value="Imprimir Marcas" class="btn btn-primary" onclick="location.href='@Url.Action("printCatalogoArea","Impresiones", new { @p_opcion = 3 })'" />
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Resguardantes</td>
+                <td>
+                    <input type="button" value="Imprimir Resguardantes" class="btn btn-primary" onclick="location.href='@Url.Action("printCatalogoArea","Impresiones", new { @p_opcion = 4 })'" />
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Testigos</td>
+                <td>
+                    <input type="button" value="Imprimir Testigos" class="btn btn-primary" onclick="location.href='@Url.Action("printCatalogoArea","Impresiones", new { @p_opcion = 5 })'" />
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Tipo Equipo</td>
+                <td>
+                    <input type="button" value="Imprimir Equipos" class="btn btn-primary" onclick="location.href='@Url.Action("printCatalogoArea","Impresiones", new { @p_opcion = 6 })'" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
